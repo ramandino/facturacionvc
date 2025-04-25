@@ -1,3 +1,4 @@
+from login_aeromex import loginto_aeromexico
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
@@ -9,117 +10,136 @@ rfc = "GVI201216LX6"
 razonsocial = "GRUPO VIAJACLICK"
 codigo_postal = 77509
 regimen = "601"
-# reserva = ""
+reservas = ["AKABXS"]
 
 driver = webdriver.Chrome()
 
 
 
 
-def aeromexico (reserva):
-    driver = webdriver.Chrome()
-    driver.get("https://amfacturacion.aeromexico.com/Inicio.aspx")
+def inicio_de_facturacion ():
+    # driver = webdriver.Chrome()
+    # driver.get("https://amfacturacion.aeromexico.com/Inicio.aspx")
 
-    """before login"""
-    loginbutton = driver.find_element(By.XPATH,'//*[@id="IdIniciar"]')
-    loginbutton.click()
-    time.sleep(2)
+    # """before login"""
+    # loginbutton = driver.find_element(By.XPATH,'//*[@id="IdIniciar"]')
+    # loginbutton.click()
+    # time.sleep(2)
 
-    email =  driver.find_element(By.XPATH,'//*[@id="txtCorreo"]')
-    email.send_keys(user_email)
+    # email =  driver.find_element(By.XPATH,'//*[@id="txtCorreo"]')
+    # email.send_keys(user_email)
 
-    password = driver.find_element(By.XPATH,'//*[@id="txtClave"]')
-    password.send_keys(user_pw)
+    # password = driver.find_element(By.XPATH,'//*[@id="txtClave"]')
+    # password.send_keys(user_pw)
 
-    start_login_button = driver.find_element(By.XPATH,'//*[@id="btnEntrar"]')
-    start_login_button.click()
+    # start_login_button = driver.find_element(By.XPATH,'//*[@id="btnEntrar"]')
+    # start_login_button.click()
 
-    time.sleep(2)
+    # time.sleep(2)
 
-    """after login"""
-    check_btn_afterlogin = driver.find_element(By.XPATH,'//*[@id="chbLeido"]')
-    check_btn_afterlogin.click()
+    # """after login"""
+    # check_btn_afterlogin = driver.find_element(By.XPATH,'//*[@id="chbLeido"]')
+    # check_btn_afterlogin.click()
 
-    accept_btn = driver.find_element(By.XPATH,'//*[@id="btnAceptoLeido"]')
-    accept_btn.click()
+    # accept_btn = driver.find_element(By.XPATH,'//*[@id="btnAceptoLeido"]')
+    # accept_btn.click()
 
-    reservationcheck_btn = driver.find_element(By.XPATH,'//*[@id="CheckClave"]')
-    reservationcheck_btn.click()
+    ##starts process
 
-    time.sleep(2)
+    loginto_aeromexico()
 
-    numero_boleto = driver.find_element(By.XPATH,'//*[@id="claveResTourCode"]')
-    numero_boleto.send_keys(reserva)
-
-    buscar_reserva_btn = driver.find_element(By.XPATH,'//*[@id="btnAgregar"]')
-    buscar_reserva_btn.click()
-
-    time.sleep(3)
-
-    continuar_btn = driver.find_element(By.XPATH,'//*[@id="MainContent_ctlBoletos_btnContinuar"]')
-    continuar_btn.click()
-
-    time.sleep(2)
-
-    aviso_ok_btn = driver.find_element(By.XPATH,'//*[@id="btnAviso"]')
-    aviso_ok_btn.click()
+    
 
 
-    rfc_input = driver.find_element(By.XPATH,'//*[@id="rfc"]')
-    rfc_input.send_keys(rfc)
+    def completacion_de_factura (reserva):
 
-    razonsocial_input = driver.find_element(By.XPATH,'//*[@id="nombre"]')
-    razonsocial_input.send_keys(razonsocial)
+        reservationcheck_btn = driver.find_element(By.XPATH,'//*[@id="CheckClave"]')
+        reservationcheck_btn.click()
 
-    codigoposta_input = driver.find_element(By.XPATH,'//*[@id="codigoPostal"]')
-    codigoposta_input.send_keys(codigo_postal)
-    time.sleep(1.5)
+        time.sleep(2)
 
-    validardatos_btn = driver.find_element(By.XPATH,'//*[@id="btnValidarDatoFiscal"]')
-    validardatos_btn.click()
+        numero_boleto = driver.find_element(By.XPATH,'//*[@id="claveResTourCode"]')
+        numero_boleto.send_keys(reserva)
 
-    time.sleep(5)
+        buscar_reserva_btn = driver.find_element(By.XPATH,'//*[@id="btnAgregar"]')
+        buscar_reserva_btn.click()
 
-    select_tdc = driver.find_element(By.NAME,"ctl00$MainContent$ctlDatosFis$CmbTipoFOP")
-    select = Select(select_tdc)
-    select.select_by_value("4")
+        time.sleep(3)
 
-    time.sleep(1)
+        continuar_btn = driver.find_element(By.XPATH,'//*[@id="MainContent_ctlBoletos_btnContinuar"]')
+        continuar_btn.click()
 
-    select_regimen = driver.find_element(By.NAME,"ctl00$MainContent$ctlDatosFis$ddRegimenFiscal")
-    selectregi = Select(select_regimen)
-    selectregi.select_by_value(regimen)
+        time.sleep(2)
 
-    time.sleep(1)
-
-    cfdi = driver.find_element(By.NAME,"ctl00$MainContent$ctlDatosFis$ddUsoCFDI")
-    selectcfdi = Select(cfdi)
-    selectcfdi.select_by_value("G03")
-
-    time.sleep(1)
-
-    email_input = driver.find_element(By.NAME,"ctl00$MainContent$ctlDatosFis$email")
-    email_input.send_keys(user_email)
-
-    time.sleep(1)
-
-    continuar_btn = driver.find_element(By.XPATH,'//*[@id="btnContinuar"]')
-    continuar_btn.click()
-
-    time.sleep(3)
-
-    confirmar_factura = driver.find_element(By.CLASS_NAME,'confirm')
-    confirmar_factura.click()
-
-    descargar_factura = driver.find_element(By.XPATH,'//*[@id="MainContent_ctlDescarga_btnDescarga"]')
-    descargar_factura.click()
-
-    time.sleep(5)
+        aviso_ok_btn = driver.find_element(By.XPATH,'//*[@id="btnAviso"]')
+        aviso_ok_btn.click()
 
 
+        rfc_input = driver.find_element(By.XPATH,'//*[@id="rfc"]')
+        rfc_input.send_keys(rfc)
+
+        razonsocial_input = driver.find_element(By.XPATH,'//*[@id="nombre"]')
+        razonsocial_input.send_keys(razonsocial)
+
+        codigoposta_input = driver.find_element(By.XPATH,'//*[@id="codigoPostal"]')
+        codigoposta_input.send_keys(codigo_postal)
+        time.sleep(1.5)
+
+        validardatos_btn = driver.find_element(By.XPATH,'//*[@id="btnValidarDatoFiscal"]')
+        validardatos_btn.click()
+
+        time.sleep(5)
+
+        select_tdc = driver.find_element(By.NAME,"ctl00$MainContent$ctlDatosFis$CmbTipoFOP")
+        select = Select(select_tdc)
+        select.select_by_value("4")
+
+        time.sleep(1)
+
+        select_regimen = driver.find_element(By.NAME,"ctl00$MainContent$ctlDatosFis$ddRegimenFiscal")
+        selectregi = Select(select_regimen)
+        selectregi.select_by_value(regimen)
+
+        time.sleep(1)
+
+        cfdi = driver.find_element(By.NAME,"ctl00$MainContent$ctlDatosFis$ddUsoCFDI")
+        selectcfdi = Select(cfdi)
+        selectcfdi.select_by_value("G03")
+
+        time.sleep(1)
+
+        email_input = driver.find_element(By.NAME,"ctl00$MainContent$ctlDatosFis$email")
+        email_input.send_keys(user_email)
+
+        time.sleep(1)
+
+        continuar_btn = driver.find_element(By.XPATH,'//*[@id="btnContinuar"]')
+        continuar_btn.click()
+
+        time.sleep(3)
+
+        confirmar_factura = driver.find_element(By.CLASS_NAME,'confirm')
+        confirmar_factura.click()
+
+        descargar_factura = driver.find_element(By.XPATH,'//*[@id="MainContent_ctlDescarga_btnDescarga"]')
+        descargar_factura.click()
+
+        nuevafactura = driver.find_element(By.XPATH,'//*[@id="ainic"]')
+        nuevafactura.click()
+
+    
+    for i in reservas:
+        completacion_de_factura(reservas[0])
+
+    
+inicio_de_facturacion()
+        
 
 
-    """OTRA FUNC"""
+# aeromexico()
+
+
+"""OTRA FUNC"""
 
     # cargar_constancia_selection = driver.find_element(By.XPATH,'//*[@id="profile-tab2"]')
     # cargar_constancia_selection.click()
@@ -142,6 +162,7 @@ def aeromexico (reserva):
 
 
 
+"""works"""
 
 
 
@@ -149,7 +170,8 @@ def aeromexico (reserva):
 
 
 
-    """LO QUE VA A PASAR ES QUE LE DAREMOS A CAPTURAR RFC ENVES DE SUBIR EL ARCHIVO"""
+
+"""LO QUE VA A PASAR ES QUE LE DAREMOS A CAPTURAR RFC ENVES DE SUBIR EL ARCHIVO"""
 
 
 

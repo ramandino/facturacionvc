@@ -1,4 +1,5 @@
-from auto_aeromexico import aeromexico
+from auto_aeromexico import inicio_de_facturacion
+from login_aeromex import loginto_aeromexico
 import pandas as pd
 
 def get_reservas ():
@@ -15,6 +16,11 @@ def get_reservas ():
     return reservas
 
 for reserva in get_reservas ():
-    aeromexico(reserva)
+    inicio_de_facturacion(reserva)
     
 get_reservas()
+
+
+loginto_aeromexico()
+
+
